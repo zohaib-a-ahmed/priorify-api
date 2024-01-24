@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from . import supabase
+from .llm import LanguageModel
 
 views_bp = Blueprint('views', __name__)
+gemini = LanguageModel()
 
 """ API Routes for Calendar + Events """
 
@@ -75,7 +77,7 @@ def delete_event(event_id):
     else:
         return jsonify({'message': 'Unauthorized'}), 401
 
-""" API Routes for To-do + Reminders """
+""" API Routes for To-do + Assignments """
 
 @views_bp.route('/todo', methods=['GET'])
 def get_reminders():
@@ -144,3 +146,20 @@ def delete_reminder(reminder_id):
         return jsonify({'message': 'Reminder deleted'}), 200
     else:
         return jsonify({'message': 'Unauthorized'}), 401
+
+""" API Routes for LLM Parsing/Autofill """
+
+@views_bp.route('/ai', methods=['POST'])
+def parse_input():
+
+    # Retrieve the string input from the request body
+    data = request.json
+    user_input = data.get('input', '')  # Default to empty string if not provided
+    curr_date = data.get('date', '')
+
+    print(gemini.parseInput(curr_date, user_input))
+
+    # You can process the input here as needed
+
+    # Return a response (for now, just echoing back the input)
+    return jsonify({"message": "Received input", "input": user_input}), 200
