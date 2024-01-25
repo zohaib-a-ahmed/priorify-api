@@ -154,12 +154,9 @@ def parse_input():
 
     # Retrieve the string input from the request body
     data = request.json
-    user_input = data.get('input', '')  # Default to empty string if not provided
+    user_input = data.get('input', '') 
     curr_date = data.get('date', '')
 
-    print(gemini.parseInput(curr_date, user_input))
-
-    # You can process the input here as needed
-
-    # Return a response (for now, just echoing back the input)
-    return jsonify({"message": "Received input", "input": user_input}), 200
+    details = gemini.parseInput(curr_date, user_input)
+    
+    return jsonify({"message": "Received input", "input": gemini.formatInput(details)}), 200

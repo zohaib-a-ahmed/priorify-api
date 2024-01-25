@@ -38,3 +38,27 @@ class LanguageModel:
         result = self.chain.invoke({'command': command, 'date': date})
 
         return result.content
+    
+    def formatInput(self, details: str) -> dict:
+
+        lines = details.strip().split('\n')
+        
+        formatted_input = {
+            'Type': 'NONE',
+            'Title': 'UNSPECIFIED',
+            'Description': 'UNSPECIFIED',
+            'Date': 'UNSPECIFIED',
+            'End date': 'UNSPECIFIED'
+        }
+
+        # Process each line and update the dictionary
+        for line in lines:
+            key, value = line.strip().split(': ', 1)
+            formatted_input[key] = value
+
+        if 'Type' not in formatted_input or formatted_input['Type'] not in ['Event', 'Assignment']:
+            formatted_input['Type'] = 'NONE'
+
+        return formatted_input
+
+
