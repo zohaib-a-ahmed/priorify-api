@@ -159,4 +159,4 @@ def parse_input():
 
     details = gemini.parseInput(curr_date, user_input)
     
-    return jsonify({"message": "Received input", "input": gemini.formatInput(details)}), 200
+    return jsonify({"details": gemini.formatInput(details)}), 200

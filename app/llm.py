@@ -17,7 +17,7 @@ class LanguageModel:
         For the type, an event will typically be quizzes, tests, presentations. Assignments will more often be things or actions due.
         For the title, try to keep it short and concise and push specifics to the description.
         For the date (and end date if exists), ensure it is in RFC3339 format (ex. 2020-06-18T17:24:53Z)
-        If the command itself isn't comprehendable or doesn't make sense, state the Type to NONE.
+        If the command itself isn't comprehendable or doesn't make sense, state the Type to NONE, try to do this scarcely.
         Do not deviate in the slightest from this expected format in your result.
 
         Expected format:
@@ -25,10 +25,10 @@ class LanguageModel:
         Title: [Event/Assignment title or UNSPECIFIED]
         Description: [Event/Assignment description or UNSPECIFIED]
         Date: [Event/Assignment date in RFC3339 format or UNSPECIFIED]
-        End date: [End date for multiple day events in RFC339 format or UNSPECIFIED]
+        End: [End date for multiple day events in RFC339 format or UNSPECIFIED]
 
         Do not deviate from this structure at all.
-        For reference, today is {date}.
+        {date}.
         Provide a structured output based on these guidelines for the following inputted command:
 
         {command}"""
@@ -48,7 +48,7 @@ class LanguageModel:
             'Title': 'UNSPECIFIED',
             'Description': 'UNSPECIFIED',
             'Date': 'UNSPECIFIED',
-            'End date': 'UNSPECIFIED'
+            'End': 'UNSPECIFIED'
         }
 
         # Process each line and update the dictionary
